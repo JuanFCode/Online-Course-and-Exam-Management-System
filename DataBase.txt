@@ -1,0 +1,199 @@
+-- public.pais definition
+
+-- Drop table
+
+-- DROP TABLE public.pais;
+
+CREATE TABLE public.pais (
+	id int4 NOT NULL,
+	nombre varchar(255) NULL,
+	CONSTRAINT pkpais PRIMARY KEY (id)
+);
+
+
+-- public.curso definition
+
+-- Drop table
+
+-- DROP TABLE public.curso;
+
+CREATE TABLE public.curso (
+	id int4 NOT NULL,
+	nombre varchar(255) NULL,
+	fabricante varchar(255) NULL,
+	fechadevencimiento timestamp NULL,
+	estado varchar(255) NULL,
+	costo numeric NOT NULL,
+	duracion timestamp NULL,
+	descripcion varchar NULL,
+	CONSTRAINT "PKCURSO" PRIMARY KEY (id)
+);
+
+
+-- public.examen definition
+
+-- Drop table
+
+-- DROP TABLE public.examen;
+
+CREATE TABLE public.examen (
+	id int4 NOT NULL,
+	curso int4 NULL,
+	modalidad varchar(255) NULL,
+	maximopreguntas int4 NULL,
+	tiempomaximo timestamp NULL,
+	porcentajerespuestas int4 NULL,
+	CONSTRAINT "PKEXAMEN" PRIMARY KEY (id),
+	CONSTRAINT fkexamencurso FOREIGN KEY (curso) REFERENCES public.curso(id)
+);
+
+
+-- public.preguntabanco definition
+
+-- Drop table
+
+-- DROP TABLE public.preguntabanco;
+
+CREATE TABLE public.preguntabanco (
+	id int4 NOT NULL,
+	curso int4 NULL,
+	tema varchar(255) NULL,
+	enunciado varchar(2000) NULL,
+	explicacion varchar(2000) NULL,
+	CONSTRAINT pkpreguntabanco PRIMARY KEY (id),
+	CONSTRAINT fkpreguntabancocurso FOREIGN KEY (curso) REFERENCES public.curso(id)
+);
+
+
+-- public.tercero definition
+
+-- Drop table
+
+-- DROP TABLE public.tercero;
+
+CREATE TABLE public.tercero (
+	id int4 NOT NULL,
+	nombre varchar(255) NULL,
+	apellidos varchar(255) NULL,
+	pais int4 NULL,
+	correoelectronico varchar(255) NOT NULL,
+	clave varchar(255) NOT NULL,
+	tipo varchar NULL,
+	CONSTRAINT "PKTERCERO" PRIMARY KEY (id),
+	CONSTRAINT "UNTERCERO" UNIQUE (correoelectronico),
+	CONSTRAINT fkterceropais FOREIGN KEY (pais) REFERENCES public.pais(id)
+);
+
+
+-- public.pregunta definition
+
+-- Drop table
+
+-- DROP TABLE public.pregunta;
+
+CREATE TABLE public.pregunta (
+	id int4 NOT NULL,
+	examen int4 NULL,
+	preguntabanco int4 NULL,
+	valortotal int4 NULL,
+	CONSTRAINT pkpregunta PRIMARY KEY (id),
+	CONSTRAINT fkpreguntaexamen FOREIGN KEY (examen) REFERENCES public.examen(id),
+	CONSTRAINT fkpreguntapreguntabanco FOREIGN KEY (preguntabanco) REFERENCES public.preguntabanco(id)
+);
+
+
+-- public.transaccion definition
+
+-- Drop table
+
+-- DROP TABLE public.transaccion;
+
+CREATE TABLE public.transaccion (
+	id int4 NOT NULL,
+	tercero int4 NOT NULL,
+	curso int4 NULL,
+	fechacompra timestamp NULL,
+	metodopago varchar NULL,
+	datallesadicionales varchar NULL,
+	cupos int4 NULL,
+	codigo varchar NULL,
+	CONSTRAINT transaccion_pk PRIMARY KEY (id),
+	CONSTRAINT fktransaccioncurso FOREIGN KEY (curso) REFERENCES public.curso(id),
+	CONSTRAINT fktransacciontercero FOREIGN KEY (tercero) REFERENCES public.tercero(id)
+);
+
+
+-- public.respuesta definition
+
+-- Drop table
+
+-- DROP TABLE public.respuesta;
+
+CREATE TABLE public.respuesta (
+	id int4 NOT NULL,
+	respuesta int4 NULL,
+	pregunta int4 NULL,
+	porcentaje int4 NULL,
+	CONSTRAINT pkrespuesta PRIMARY KEY (id),
+	CONSTRAINT respuesta_fk FOREIGN KEY (pregunta) REFERENCES public.pregunta(id)
+);
+
+
+-- public.examenpresentado definition
+
+-- Drop table
+
+-- DROP TABLE public.examenpresentado;
+
+CREATE TABLE public.examenpresentado (
+	id int4 NOT NULL,
+	tercero int4 NOT NULL,
+	examen int4 NULL,
+	fechainicio timestamp NULL,
+	fechafinal timestamp NULL,
+	ultimapreguntarespondida int4 NULL,
+	estadoexamen varchar NULL,
+	CONSTRAINT pkexamenpresentado PRIMARY KEY (id),
+	CONSTRAINT fkexamenpresentadoexamen FOREIGN KEY (examen) REFERENCES public.examen(id),
+	CONSTRAINT fkexamenpresentadotercero FOREIGN KEY (tercero) REFERENCES public.tercero(id)
+);
+
+
+-- public.terceroscursos definition
+
+-- Drop table
+
+-- DROP TABLE public.terceroscursos;
+
+CREATE TABLE public.terceroscursos (
+	id int4 NOT NULL,
+	transaccion int4 NULL,
+	tercero int4 NULL,
+	curso int4 NULL,
+	fechaactivacion timestamp NULL,
+	fechafinal timestamp NULL,
+	CONSTRAINT tercerocurso_pk PRIMARY KEY (id),
+	CONSTRAINT tercerocurso_fk FOREIGN KEY (transaccion) REFERENCES public.transaccion(id),
+	CONSTRAINT terceroscursoscurso_fk FOREIGN KEY (curso) REFERENCES public.curso(id),
+	CONSTRAINT terceroscursostercero_fk FOREIGN KEY (tercero) REFERENCES public.tercero(id)
+);
+
+
+-- public.respuestaexamen definition
+
+-- Drop table
+
+-- DROP TABLE public.respuestaexamen;
+
+CREATE TABLE public.respuestaexamen (
+	id int4 NOT NULL,
+	examenpresentado int4 NULL,
+	preguntas int4 NULL,
+	respuestas int4 NULL,
+	tiemporespuesta timestamp NULL,
+	marcada int4 NULL,
+	CONSTRAINT respuestaexamen_pk PRIMARY KEY (id),
+	CONSTRAINT fkrespuestaexamenpregunta FOREIGN KEY (preguntas) REFERENCES public.pregunta(id),
+	CONSTRAINT fkrespuestaexamenpresentado FOREIGN KEY (examenpresentado) REFERENCES public.examenpresentado(id),
+	CONSTRAINT fkrespuestaexamenrespuesta FOREIGN KEY (respuestas) REFERENCES public.respuesta(id)
+);
