@@ -18,7 +18,12 @@ namespace Online_Course_and_Exam_Management_System.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Pai>>> Getmodels()
         {
-            return Ok(await _context.Pais.ToListAsync());
+            // Muestra en la entidad pais donde el id se 1 
+           // return Ok(await _context.Pais.Where(auth => auth.Id == 1).ToListAsync());
+
+            // Muestra todos los datos de la entidad Pai (que es Pais)
+           return Ok(await _context.Pais.ToListAsync());
+
         }
     }
 }
