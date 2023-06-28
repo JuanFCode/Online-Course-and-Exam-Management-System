@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Online_Course_and_Exam_Management_System</RootNamespace>
+    <UserSecretsId>5aa86c9f-2796-40ec-8e43-13e5b0284ff7</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

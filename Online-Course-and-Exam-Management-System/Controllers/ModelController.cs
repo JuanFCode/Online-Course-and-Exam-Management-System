@@ -16,9 +16,9 @@ namespace Online_Course_and_Exam_Management_System.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Tercero>>> Getmodels()
+        public async Task<ActionResult<List<Pai>>> Getmodels()
         {
-            return Ok(await _context.Terceros.ToListAsync());
+            return Ok(await _context.Pais.ToListAsync());
         }
     }
 }
