@@ -14,16 +14,18 @@ namespace Online_Course_and_Exam_Management_System.Controllers
         {
             _context = context;
         }
-
-        [HttpGet]
-        public async Task<ActionResult<List<Pai>>> Getmodels()
+        [HttpGet("paises")]
+        public async Task<ActionResult<List<Pai>>> GetPaises()
         {
-            // Muestra en la entidad pais donde el id se 1 
-           // return Ok(await _context.Pais.Where(auth => auth.Id == 1).ToListAsync());
-
-            // Muestra todos los datos de la entidad Pai (que es Pais)
-           return Ok(await _context.Pais.ToListAsync());
-
+            try
+            {
+                var paises = await _context.Pais.ToListAsync();
+                return Ok(paises);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrió un error al obtener los países: " + ex.Message);
+            }
         }
     }
 }
