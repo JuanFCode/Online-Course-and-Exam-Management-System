@@ -55,6 +55,27 @@ namespace Online_Course_and_Exam_Management_System.Controllers
         }
 
 
+
+        // Metodo post() esto es para crear un nuevo objeto de pais
+
+        [HttpPost("paises/post")]
+        public async Task<ActionResult<Pai>> CreatePais(Pai pai)
+        {
+            try
+            {
+                _context.Pais.Add(pai);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetPaisById), new { id = pai.Id }, pai);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrió un error al crear el país: " + ex.Message);
+            }
+        }
+
+
+
         [HttpGet("paises/procedure")]
         public ActionResult<List<Pai>> GetPaisesFromStoredProcedure()
         {
