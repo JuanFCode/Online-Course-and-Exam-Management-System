@@ -18,6 +18,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             _context = context;
         }
 
+        // metodo get() para mostrar todos los datos de la tabla pais
         [HttpGet("paises")]
         public async Task<ActionResult<List<Pai>>> GetPaises()
         {
@@ -31,6 +32,28 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 return StatusCode(500, "Ocurrió un error al obtener los países: " + ex.Message);
             }
         }
+
+        // Metodo get() para buscar por id de la tabla pais 
+        [HttpGet("Pais/{id}")]
+        public async Task<ActionResult<Pai>> GetPaisById(int id)
+        {
+            try
+            {
+                var pais = await _context.Pais.FindAsync(id);
+
+                if (pais == null)
+                {
+                    return NotFound(); // Devuelve un código 404 si el país no existe
+                }
+
+                return Ok(pais);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrió un error al obtener el país: " + ex.Message);
+            }
+        }
+
 
         [HttpGet("paises/procedure")]
         public ActionResult<List<Pai>> GetPaisesFromStoredProcedure()
