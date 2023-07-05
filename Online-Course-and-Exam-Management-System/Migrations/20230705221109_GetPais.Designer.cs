@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Online_Course_and_Exam_Management_System.Models;
@@ -11,9 +12,11 @@ using Online_Course_and_Exam_Management_System.Models;
 namespace Online_Course_and_Exam_Management_System.Migrations
 {
     [DbContext(typeof(PostgresContext))]
-    partial class PostgresContextModelSnapshot : ModelSnapshot
+    [Migration("20230705221109_GetPais")]
+    partial class GetPais
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
