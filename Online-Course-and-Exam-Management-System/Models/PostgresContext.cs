@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-
-namespace Online_Course_and_Exam_Management_System.Models;
+﻿namespace Online_Course_and_Exam_Management_System.Models;
 
 public partial class PostgresContext : DbContext
 {
@@ -37,7 +33,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Transaccion> Transaccions { get; set; }
 
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pg_catalog", "adminpack");

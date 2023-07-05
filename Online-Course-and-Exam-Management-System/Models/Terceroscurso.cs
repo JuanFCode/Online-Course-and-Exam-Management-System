@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Online_Course_and_Exam_Management_System.Models;
+﻿namespace Online_Course_and_Exam_Management_System.Models;
 
 public partial class Terceroscurso
 {

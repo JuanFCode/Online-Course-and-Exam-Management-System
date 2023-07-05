@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Online_Course_and_Exam_Management_System.Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Online_Course_and_Exam_Management_System.Controllers
 {
@@ -54,10 +50,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             }
         }
 
-
-
-        // Metodo post() esto es para crear un nuevo objeto de pais
-
+        // Metodo post() para crear un nuevo objeto de pais
         [HttpPost("paises/post")]
         public async Task<ActionResult<Pai>> CreatePais(Pai pai)
         {
@@ -74,21 +67,18 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             }
         }
 
-
-
         [HttpGet("paises/procedure")]
         public ActionResult<List<Pai>> GetPaisesFromStoredProcedure()
-        {
-            try
-            {
-                var paises = _context.Pais.FromSqlRaw("EXECUTE public.getpaises()").ToList();
 
-                return Ok(paises);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Ocurrió un error al obtener los países: " + ex.Message);
-            }
+
+        {
+            var paises = _context.Pais.FromSqlRaw("getpaises()").ToListAsync();
+
+            return Ok(paises);
         }
+
+
     }
 }
+
+
