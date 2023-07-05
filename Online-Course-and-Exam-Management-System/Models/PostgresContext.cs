@@ -36,14 +36,10 @@ public partial class PostgresContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Pai>().HasNoKey().ToFunction("public.getpaises");
 
         modelBuilder.HasPostgresExtension("pg_catalog", "adminpack");
 
-        // Configura el mapeo de la entidad Pai al procedimiento almacenado
-        modelBuilder.Entity<Pai>()
-            .ToFunction("public.getpaises");
-
+      
         modelBuilder.Entity<Curso>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PKCURSO");
