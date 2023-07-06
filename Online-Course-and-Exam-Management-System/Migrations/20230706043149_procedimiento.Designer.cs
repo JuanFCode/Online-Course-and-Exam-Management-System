@@ -12,8 +12,8 @@ using Online_Course_and_Exam_Management_System.Models;
 namespace Online_Course_and_Exam_Management_System.Migrations
 {
     [DbContext(typeof(PostgresContext))]
-    [Migration("20230706035923_procedimientoalmacenadopais")]
-    partial class procedimientoalmacenadopais
+    [Migration("20230706043149_procedimiento")]
+    partial class procedimiento
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
