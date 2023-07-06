@@ -20,7 +20,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
         {
             try
             {
-                var paises = await _context.Pais.FromSqlRaw("SELECT * FROM getpaises()").ToListAsync();
+                var paises = await _context.Pais.FromSqlRaw("CALL public.getpaises()").ToListAsync();
                 return Ok(paises);
             }
             catch (Exception ex)
@@ -28,6 +28,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 return StatusCode(500, "Ocurrió un error al obtener los países desde el procedimiento almacenado: " + ex.Message);
             }
         }
+
 
     }
 }
