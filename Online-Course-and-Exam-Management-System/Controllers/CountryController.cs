@@ -29,18 +29,6 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             }
         }
 
-        [HttpGet]
-        public  async Task<ActionResult<List<Pai>>> GetCountries()
-        {
-            var result = await _context.Pais.FromSqlRaw("CALL public.getpaises()").ToListAsync();
-            return Ok(result);
-        }
-
-
-        public List<Pai> GetCountries1()
-        {
-            var countries = _context.Pais.FromSqlRaw("SELECT * FROM getpais()").ToList();
-            return countries;
-        }
+      
     }
 }
