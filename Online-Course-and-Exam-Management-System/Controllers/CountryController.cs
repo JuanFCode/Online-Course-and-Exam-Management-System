@@ -21,6 +21,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             _logger = logger;
         }
 
+        // Obtiene la lista de países desde un procedimiento almacenado.
         [HttpGet("GetPais")]
         public async Task<ActionResult<IEnumerable<Pai>>> GetPaisesFromStoredProcedure1()
         {
@@ -28,26 +29,30 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             {
                 _logger.LogInformation("Ejecutando consulta del procedimiento almacenado");
 
+                // Ejecutar la consulta SQL para obtener los países desde el procedimiento almacenado
                 var paises = await _context.Pais.FromSqlRaw("SELECT id,nombre FROM mostrar_datos();").ToListAsync();
 
                 _logger.LogInformation("Consulta ejecutada exitosamente");
 
+                // Mapear los resultados a un DTO ( es Data Transfer Objects ) de país para controlar los datos expuestos
                 var paisDTO = paises.Select(p => new Pai
                 {
                     Id = p.Id,
                     Nombre = p.Nombre
                 }).ToList();
-
+                // Devolver una respuesta HTTP 200 (OK) con la lista de países DTO
                 return Ok(paisDTO);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error al obtener los países desde el procedimiento almacenado");
 
+                // Devolver una respuesta HTTP 500 (Internal Server Error) con un mensaje de error
                 return StatusCode(500, $"Error al obtener los países desde el procedimiento almacenado: {ex.Message}");
             }
         }
 
+        // Crea un nuevo país.
         [HttpPost("CreatePais")]
         public async Task<IActionResult> CreatePais([FromBody] Pai pai)
         {
