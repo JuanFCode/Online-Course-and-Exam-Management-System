@@ -47,5 +47,38 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 return StatusCode(500, $"Error al obtener los países desde el procedimiento almacenado: {ex.Message}");
             }
         }
+
+        [HttpPost("CreatePais")]
+        public async Task<IActionResult> CreatePais([FromBody] Pai pai)
+        {
+            try
+            {
+                _logger.LogInformation("Creando nuevo país");
+
+                // Crear una nueva instancia de la entidad "Pai" y asignar los valores del DTO
+                var nuevoPais = new Pai
+                {
+                    Id = pai.Id,
+                    Nombre = pai.Nombre
+                };
+
+                // Agregar el nuevo país al contexto y guardar los cambios en la base de datos
+                _context.Pais.Add(nuevoPais);
+                await _context.SaveChangesAsync();
+
+                _logger.LogInformation("País creado exitosamente");
+
+                // Devolver una respuesta HTTP 201 (Created) con el nuevo país creado
+                return StatusCode(201, nuevoPais);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al crear el país");
+
+                // Devolver una respuesta HTTP 500 (Internal Server Error) con un mensaje de error
+                return StatusCode(500, $"Error al crear el país: {ex.Message}");
+            }
+        }
+
     }
 }
