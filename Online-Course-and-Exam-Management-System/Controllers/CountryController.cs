@@ -21,18 +21,24 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pai>>> GetPaisesFromStoredProcedure()
+        [HttpGet("GetPais")]
+        public async Task<ActionResult<IEnumerable<Pai>>> GetPaisesFromStoredProcedure1()
         {
             try
             {
                 _logger.LogInformation("Ejecutando consulta del procedimiento almacenado");
 
-                var paises = await _context.Pais.FromSqlRaw("SELECT * FROM mostrar_datos();").ToListAsync();
+                var paises = await _context.Pais.FromSqlRaw("SELECT id,nombre FROM mostrar_datos();").ToListAsync();
 
                 _logger.LogInformation("Consulta ejecutada exitosamente");
 
-                return Ok(paises);
+                var paisDTO = paises.Select(p => new Pai
+                {
+                    Id = p.Id,
+                    Nombre = p.Nombre
+                }).ToList();
+
+                return Ok(paisDTO);
             }
             catch (Exception ex)
             {
