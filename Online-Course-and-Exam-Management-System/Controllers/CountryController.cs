@@ -60,21 +60,13 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             {
                 _logger.LogInformation("Creando nuevo país");
 
-                // Crear una nueva instancia de la entidad "Pai" y asignar los valores del DTO
-                var nuevoPais = new Pai
-                {
-                    Id = pai.Id,
-                    Nombre = pai.Nombre
-                };
-
-                // Agregar el nuevo país al contexto y guardar los cambios en la base de datos
-                _context.Pais.Add(nuevoPais);
-                await _context.SaveChangesAsync();
+                // Llamar a la función de inserción de datos en PostgreSQL
+                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT insertar_datos({pai.Id}, {pai.Nombre})");
 
                 _logger.LogInformation("País creado exitosamente");
 
                 // Devolver una respuesta HTTP 201 (Created) con el nuevo país creado
-                return StatusCode(201, nuevoPais);
+                return StatusCode(201);
             }
             catch (Exception ex)
             {
@@ -84,6 +76,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 return StatusCode(500, $"Error al crear el país: {ex.Message}");
             }
         }
+
 
     }
 }
