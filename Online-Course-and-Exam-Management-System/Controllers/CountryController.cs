@@ -101,6 +101,31 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             }
         }
 
+        [HttpDelete("DeletePais/{id}")]
+        public async Task<IActionResult> DeletePais(int id)
+        {
+            try
+            {
+                _logger.LogInformation($"Eliminando país con ID: {id}");
+
+                // Llamar a la función de eliminación de datos en PostgreSQL
+                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT eliminar_datos({id})");
+
+                _logger.LogInformation("País eliminado exitosamente");
+
+                // Devolver una respuesta HTTP 204 (No Content) para indicar que la eliminación fue exitosa
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al eliminar el país");
+
+                // Devolver una respuesta HTTP 500 (Internal Server Error) con un mensaje de error
+                return StatusCode(500, $"Error al eliminar el país: {ex.Message}");
+            }
+        }
+
+
 
     }
 }
