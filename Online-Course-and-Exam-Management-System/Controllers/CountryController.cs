@@ -53,7 +53,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
         }
 
         // Crea un nuevo país.
-        [HttpPost("CreatePais")]
+        [HttpPost("PostPais")]
         public async Task<IActionResult> CreatePais([FromBody] Pai pai)
         {
             try
@@ -74,6 +74,30 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
                 // Devolver una respuesta HTTP 500 (Internal Server Error) con un mensaje de error
                 return StatusCode(500, $"Error al crear el país: {ex.Message}");
+            }
+        }
+
+        [HttpPut("PutPais/{id}")]
+        public async Task<IActionResult> UpdatePais(int id, [FromBody] Pai pai)
+        {
+            try
+            {
+                _logger.LogInformation($"Actualizando país con ID: {id}");
+
+                // Llamar a la función de actualización de datos en PostgreSQL
+                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT actualizar_datos({id}, {pai.Nombre})");
+
+                _logger.LogInformation("País actualizado exitosamente");
+
+                // Devolver una respuesta HTTP 204 (No Content) para indicar que la actualización fue exitosa
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al actualizar el país");
+
+                // Devolver una respuesta HTTP 500 (Internal Server Error) con un mensaje de error
+                return StatusCode(500, $"Error al actualizar el país: {ex.Message}");
             }
         }
 
