@@ -23,32 +23,33 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Obtiene la lista de países desde un procedimiento almacenado.
         [HttpGet("GetPais")]
-        public async Task<ActionResult<IEnumerable<Pai>>> GetPaisesFromStoredProcedure1()
+        public async Task<ActionResult<IEnumerable<Pai>>> GetPaisesFromStoredProcedure()
         {
             try
             {
-                _logger.LogInformation("Ejecutando consulta del procedimiento almacenado");
+                _logger.LogInformation("Ejecutando consulta para obtener los países");
 
-                // Ejecutar la consulta SQL para obtener los países desde el procedimiento almacenado
-                var paises = await _context.Pais.FromSqlRaw("SELECT id,nombre FROM mostrar_pais();").ToListAsync();
+                // Ejecutar la consulta SQL para obtener los países directamente
+                var paises = await _context.Pais.ToListAsync();
 
                 _logger.LogInformation("Consulta ejecutada exitosamente");
 
-                // Mapear los resultados a un DTO ( es Data Transfer Objects ) de país para controlar los datos expuestos
+                // Mapear los resultados a un DTO (Data Transfer Objects) de país para controlar los datos expuestos
                 var paisDTO = paises.Select(p => new Pai
                 {
                     Id = p.Id,
                     Nombre = p.Nombre
                 }).ToList();
+
                 // Devolver una respuesta HTTP 200 (OK) con la lista de países DTO
                 return Ok(paisDTO);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al obtener los países desde el procedimiento almacenado");
+                _logger.LogError(ex, "Error al obtener los países");
 
                 // Devolver una respuesta HTTP 500 (Internal Server Error) con un mensaje de error
-                return StatusCode(500, $"Error al obtener los países desde el procedimiento almacenado: {ex.Message}");
+                return StatusCode(500, $"Error al obtener los países: {ex.Message}");
             }
         }
 
@@ -60,8 +61,16 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             {
                 _logger.LogInformation("Creando nuevo país");
 
-                // Llamar a la función de inserción de datos en PostgreSQL
-                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT insertar_pais({pai.Id}, {pai.Nombre})");
+                // Crear una nueva instancia de la entidad Pais con los datos recibidos
+                var nuevoPais = new Pai
+                {
+                    Id = pai.Id,
+                    Nombre = pai.Nombre
+                };
+
+                // Agregar la nueva entidad al contexto y guardar los cambios en la base de datos
+                _context.Pais.Add(nuevoPais);
+                await _context.SaveChangesAsync();
 
                 _logger.LogInformation("País creado exitosamente");
 
@@ -77,6 +86,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             }
         }
 
+
         [HttpPut("PutPais/{id}")]
         public async Task<IActionResult> UpdatePais(int id, [FromBody] Pai pai)
         {
@@ -84,8 +94,19 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             {
                 _logger.LogInformation($"Actualizando país con ID: {id}");
 
-                // Llamar a la función de actualización de datos en PostgreSQL
-                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT actualizar_pais({id}, {pai.Nombre})");
+                // Buscar el país existente en la base de datos
+                var paisExistente = await _context.Pais.FindAsync(id);
+
+                if (paisExistente == null)
+                {
+                    return NotFound(); // Devolver una respuesta HTTP 404 (Not Found) si el país no existe
+                }
+
+                // Actualizar los datos del país existente con los nuevos datos recibidos
+                paisExistente.Nombre = pai.Nombre;
+
+                // Guardar los cambios en la base de datos
+                await _context.SaveChangesAsync();
 
                 _logger.LogInformation("País actualizado exitosamente");
 
@@ -101,6 +122,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             }
         }
 
+
         [HttpDelete("DeletePais/{id}")]
         public async Task<IActionResult> DeletePais(int id)
         {
@@ -108,8 +130,19 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             {
                 _logger.LogInformation($"Eliminando país con ID: {id}");
 
-                // Llamar a la función de eliminación de datos en PostgreSQL
-                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT eliminar_pais({id})");
+                // Buscar el país existente en la base de datos
+                var paisExistente = await _context.Pais.FindAsync(id);
+
+                if (paisExistente == null)
+                {
+                    return NotFound(); // Devolver una respuesta HTTP 404 (Not Found) si el país no existe
+                }
+
+                // Eliminar el país existente del contexto
+                _context.Pais.Remove(paisExistente);
+
+                // Guardar los cambios en la base de datos
+                await _context.SaveChangesAsync();
 
                 _logger.LogInformation("País eliminado exitosamente");
 
@@ -124,6 +157,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 return StatusCode(500, $"Error al eliminar el país: {ex.Message}");
             }
         }
+
 
 
 
