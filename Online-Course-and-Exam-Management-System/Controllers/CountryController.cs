@@ -30,7 +30,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 _logger.LogInformation("Ejecutando consulta del procedimiento almacenado");
 
                 // Ejecutar la consulta SQL para obtener los países desde el procedimiento almacenado
-                var paises = await _context.Pais.FromSqlRaw("SELECT id,nombre FROM mostrar_datos();").ToListAsync();
+                var paises = await _context.Pais.FromSqlRaw("SELECT id,nombre FROM mostrar_pais();").ToListAsync();
 
                 _logger.LogInformation("Consulta ejecutada exitosamente");
 
@@ -61,7 +61,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 _logger.LogInformation("Creando nuevo país");
 
                 // Llamar a la función de inserción de datos en PostgreSQL
-                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT insertar_datos({pai.Id}, {pai.Nombre})");
+                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT insertar_pais({pai.Id}, {pai.Nombre})");
 
                 _logger.LogInformation("País creado exitosamente");
 
@@ -85,7 +85,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 _logger.LogInformation($"Actualizando país con ID: {id}");
 
                 // Llamar a la función de actualización de datos en PostgreSQL
-                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT actualizar_datos({id}, {pai.Nombre})");
+                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT actualizar_pais({id}, {pai.Nombre})");
 
                 _logger.LogInformation("País actualizado exitosamente");
 
@@ -109,7 +109,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 _logger.LogInformation($"Eliminando país con ID: {id}");
 
                 // Llamar a la función de eliminación de datos en PostgreSQL
-                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT eliminar_datos({id})");
+                await _context.Database.ExecuteSqlInterpolatedAsync($@"SELECT eliminar_pais({id})");
 
                 _logger.LogInformation("País eliminado exitosamente");
 
