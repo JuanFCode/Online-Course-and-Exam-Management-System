@@ -41,7 +41,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     Correoelectronico = p.Correoelectronico,
                     Clave = p.Clave,
                     Tipo = p.Tipo
-                    
+
                 }).ToList();
 
                 // Devolver una respuesta HTTP 200 (OK) con la lista de terceros DTO
@@ -69,7 +69,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 var nuevoTercero = new Tercero
                 {
                     Id = tercero.Id,
-                    Nombre = tercero.Nombre,                  
+                    Nombre = tercero.Nombre,
                     Apellidos = tercero.Apellidos,
                     Pais = tercero.Pais,
                     Correoelectronico = tercero.Correoelectronico,
@@ -112,37 +112,14 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound(); // Devolver una respuesta HTTP 404 (Not Found) si el tercero no existe
                 }
 
-                // Actualizar los datos del tercero existente con los nuevos datos recibidos
+                // Utilizar asignación condicional para actualizar los campos si no son nulos
 
-                if (tercero.Nombre != null)
-                {
-                    terceroExistente.Nombre = tercero.Nombre;
-                }
-
-                if (tercero.Apellidos != null)
-                {
-                    terceroExistente.Apellidos = tercero.Apellidos;
-                }
-
-                if (tercero.Pais != null)
-                {
-                    terceroExistente.Pais = tercero.Pais;
-                }
-
-                if (tercero.Correoelectronico != null)
-                {
-                    terceroExistente.Correoelectronico = tercero.Correoelectronico;
-                }
-
-                if (tercero.Clave != null)
-                {
-                    terceroExistente.Clave = tercero.Clave;
-                }
-
-                if (tercero.Tipo != null)
-                {
-                    terceroExistente.Tipo = tercero.Tipo;
-                }
+                terceroExistente.Nombre ??= tercero.Nombre;
+                terceroExistente.Apellidos ??= tercero.Apellidos;
+                terceroExistente.Pais ??= tercero.Pais;
+                terceroExistente.Correoelectronico ??= tercero.Correoelectronico;
+                terceroExistente.Clave ??= tercero.Clave;
+                terceroExistente.Tipo ??= tercero.Tipo;
 
                 // Guardar los cambios en la base de datos
                 await _context.SaveChangesAsync();
