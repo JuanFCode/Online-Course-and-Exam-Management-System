@@ -1,4 +1,4 @@
-global using Microsoft.EntityFrameworkCore;
+﻿global using Microsoft.EntityFrameworkCore;
 using Online_Course_and_Exam_Management_System.Models;
 
 var builder = WebApplication.CreateBuilder(args);
