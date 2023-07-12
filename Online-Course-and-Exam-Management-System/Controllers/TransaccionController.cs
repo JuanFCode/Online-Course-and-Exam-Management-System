@@ -88,7 +88,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 }
 
                 // Actualizar los campos individuales del curso existente solo si han sido modificados
-                if (transaccion.Tercero != 0)
+                if (transaccion.Tercero != null  )
                 {
                     transaccionExistente.Tercero = transaccion.Tercero;
                 }
@@ -99,11 +99,11 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     transaccionExistente.Curso = transaccion.Curso;
                 }
 
-                transaccionExistente.Fechacompra = transaccion.Fechacompra ?? transaccion.Fechacompra;
-                transaccionExistente.Metodopago = transaccion.Metodopago ?? transaccion.Metodopago;
-                transaccionExistente.Datallesadicionales = transaccion.Datallesadicionales ?? transaccion.Datallesadicionales;
-                transaccionExistente.Cupos = transaccion.Cupos ?? transaccion.Cupos;
-                transaccionExistente.Codigo = transaccion.Codigo ?? transaccion.Codigo;
+                transaccionExistente.Fechacompra = transaccion.Fechacompra ?? transaccionExistente.Fechacompra;
+                transaccionExistente.Metodopago = transaccion.Metodopago ?? transaccionExistente.Metodopago;
+                transaccionExistente.Datallesadicionales = transaccion.Datallesadicionales ?? transaccionExistente.Datallesadicionales;
+                transaccionExistente.Cupos = transaccion.Cupos ?? transaccionExistente.Cupos;
+                transaccionExistente.Codigo = transaccion.Codigo ?? transaccionExistente.Codigo;
 
                 // Guardar los cambios en la base de datos
                 await _context.SaveChangesAsync();
@@ -123,57 +123,76 @@ namespace Online_Course_and_Exam_Management_System.Controllers
         }
 
         // POST: api/Transaccion
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Transaccion>> PostTransaccion(Transaccion transaccion)
+        [HttpPost("PostTransaccion")]
+        public async Task<IActionResult> postTransaccion([FromBody] Transaccion transaccion)
         {
-            if (_context.Transaccions == null)
-            {
-                return Problem("Entity set 'PostgresContext.Transaccions'  is null.");
-            }
-            _context.Transaccions.Add(transaccion);
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (TransaccionExists(transaccion.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                _logger.LogInformation("Creando nuevo transaccion");
 
-            return CreatedAtAction("GetTransaccion", new { id = transaccion.Id }, transaccion);
+                // Agregar el objeto transaccioon a la colección de Transacciones en el contexto
+                _context.Transaccions.Add(transaccion);
+
+                // Guardar los cambios en la base de datos
+                await _context.SaveChangesAsync();
+
+                _logger.LogInformation("Transaccion creado exitosamente");
+
+                // Devolver un código de estado 201 (Created) para indicar que el recurso se creó correctamente
+                return StatusCode(201);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al crear transaccion");
+
+                // Devolver un código de estado 500 (Internal Server Error) y un mensaje de error en caso de excepción
+                return StatusCode(500, $"Error al crear el curso: {ex.Message}");
+            }
         }
 
         // DELETE: api/Transaccion/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteTransaccion/{id}")]
         public async Task<IActionResult> DeleteTransaccion(int id)
         {
-            if (_context.Transaccions == null)
+            try
             {
-                return NotFound();
+                _logger.LogInformation($"Eliminando transaccion con ID: {id}");
+
+                var transaccionExistente = await _context.Transaccions.SingleOrDefaultAsync(c => c.Id == id);
+
+                if (transaccionExistente == null)
+                {
+                    return NotFound(); // Devolver una respuesta HTTP 404 (Not Found) si la transaccion no existe
+                }
+
+                _context.Transaccions.Remove(transaccionExistente);
+                await _context.SaveChangesAsync();
+
+                _logger.LogInformation("Transaccion eliminado exitosamente");
+
+                // Devolver una respuesta HTTP 204 (No Content) para indicar que la eliminación fue exitosa
+                return NoContent();
             }
-            var transaccion = await _context.Transaccions.FindAsync(id);
-            if (transaccion == null)
+            catch (InvalidOperationException ex)
             {
-                return NotFound();
+                // Manejar excepciones de operación no válida (InvalidOperation)
+                _logger.LogError(ex, "Error al eliminar la transaccion: Operación no válida");
+                return StatusCode(500, $"Error al eliminar la transaccion: Operación no válida");
             }
+            catch (Exception ex)
+            {
+                // Manejar excepciones genéricas
+                _logger.LogError(ex, "Error al eliminar la transaccion");
 
-            _context.Transaccions.Remove(transaccion);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+                // Devolver una respuesta HTTP 500 (Internal Server Error) con un mensaje de error
+                return StatusCode(500, $"Error al eliminar la transaccion : {ex.Message}");
+            }
         }
 
-        private bool TransaccionExists(int id)
-        {
-            return (_context.Transaccions?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+
+
+
+
+
     }
 }
