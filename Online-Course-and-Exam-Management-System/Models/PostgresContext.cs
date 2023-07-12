@@ -33,13 +33,10 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Transaccion> Transaccions { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.HasPostgresExtension("pg_catalog", "adminpack");
 
-      
         modelBuilder.Entity<Curso>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PKCURSO");
@@ -331,7 +328,6 @@ public partial class PostgresContext : DbContext
 
             entity.HasOne(d => d.TerceroNavigation).WithMany(p => p.Transaccions)
                 .HasForeignKey(d => d.Tercero)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fktransacciontercero");
         });
 

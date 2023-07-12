@@ -4,7 +4,7 @@ public partial class Transaccion
 {
     public int Id { get; set; }
 
-    public int Tercero { get; set; }
+    public int? Tercero { get; set; }
 
     public int? Curso { get; set; }
 
@@ -20,7 +20,7 @@ public partial class Transaccion
 
     public virtual Curso? CursoNavigation { get; set; }
 
-    public virtual Tercero TerceroNavigation { get; set; } = null!;
+    public virtual Tercero? TerceroNavigation { get; set; }
 
     public virtual ICollection<Terceroscurso> Terceroscursos { get; set; } = new List<Terceroscurso>();
 }
