@@ -85,8 +85,8 @@ namespace Online_Course_and_Exam_Management_System.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCurso(int id, [FromBody] Curso curso)
+        [HttpPut("putCurso/{id}")]
+        public async Task<IActionResult> PutCurso(int id, [FromBody] Curso curso)
         {
             try
             {
