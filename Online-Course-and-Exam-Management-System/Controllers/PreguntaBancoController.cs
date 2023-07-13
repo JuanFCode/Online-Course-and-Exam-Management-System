@@ -10,8 +10,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
     {
         private readonly PostgresContext _context;
         private readonly ILogger<PreguntaBancoController> _logger;
-
-
+        
         public PreguntaBancoController(PostgresContext context, ILogger<PreguntaBancoController> logger)
         {
             _context = context;
@@ -108,7 +107,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 // Si no se encuentra la transaccion, devolver una respuesta de error NotFound
                 if (preguntaBancoExistente == null)
                 {
-                    return NotFound($"No se encontró Examen con ID: {id}");
+                    return NotFound($"No se encontró preguntaBanco con ID: {id}");
                 }
 
                 preguntaBancoExistente.Curso = preguntabanco.Curso ?? preguntaBancoExistente.Curso;
