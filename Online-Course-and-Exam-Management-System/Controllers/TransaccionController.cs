@@ -146,7 +146,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 _logger.LogError(ex, "Error al crear transaccion");
 
                 // Devolver un código de estado 500 (Internal Server Error) y un mensaje de error en caso de excepción
-                return StatusCode(500, $"Error al crear el curso: {ex.Message}");
+                return StatusCode(500, $"Error al crear la transaccions: {ex.Message}");
             }
         }
 
