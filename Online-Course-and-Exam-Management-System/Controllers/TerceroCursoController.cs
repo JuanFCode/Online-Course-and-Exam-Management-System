@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Online_Course_and_Exam_Management_System.Models;
 
 namespace Online_Course_and_Exam_Management_System.Controllers
