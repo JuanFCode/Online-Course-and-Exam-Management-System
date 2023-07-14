@@ -13,6 +13,23 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// Configuración de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+
+            // Si quisiera que solo fuera permitido para un solo domino espesifico seria 
+            // builder.WithOrigins("www.juanjimenez.com")
+            builder.AllowAnyOrigin() // Esto permite que puedan acceder a cualquier dominio
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +42,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+// Habilitar CORS
+app.UseCors("AllowAllOrigins");
 
 app.MapControllers();
 
