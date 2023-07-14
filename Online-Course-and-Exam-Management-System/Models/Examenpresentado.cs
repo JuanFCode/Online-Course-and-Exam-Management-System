@@ -4,7 +4,7 @@ public partial class Examenpresentado
 {
     public int Id { get; set; }
 
-    public int Tercero { get; set; }
+    public int? Tercero { get; set; }
 
     public int? Examen { get; set; }
 
@@ -20,5 +20,5 @@ public partial class Examenpresentado
 
     public virtual ICollection<Respuestaexaman> Respuestaexamen { get; set; } = new List<Respuestaexaman>();
 
-    public virtual Tercero TerceroNavigation { get; set; } = null!;
+    public virtual Tercero? TerceroNavigation { get; set; }
 }

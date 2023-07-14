@@ -19,7 +19,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Pai> Pais { get; set; }
 
-    public virtual DbSet<Preguntabanco> Preguntabancos { get; set; }
+      public virtual DbSet<Preguntabanco> Preguntabancos { get; set; }
 
     public virtual DbSet<Preguntum> Pregunta { get; set; }
 
@@ -33,7 +33,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Transaccion> Transaccions { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pg_catalog", "adminpack");
 
@@ -119,11 +119,10 @@ public partial class PostgresContext : DbContext
 
             entity.HasOne(d => d.TerceroNavigation).WithMany(p => p.Examenpresentados)
                 .HasForeignKey(d => d.Tercero)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fkexamenpresentadotercero");
         });
 
-        modelBuilder.Entity<Pai>(entity =>
+         modelBuilder.Entity<Pai>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pkpais");
 
