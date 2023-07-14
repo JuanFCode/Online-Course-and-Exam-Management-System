@@ -82,7 +82,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 _logger.LogError(ex, "Error al crear respuesta");
 
                 // Devolver un código de estado 500 (Internal Server Error) y un mensaje de error en caso de excepción
-                return StatusCode(500, $"Error al crear el pregunta: {ex.Message}");
+                return StatusCode(500, $"Error al crear el respuesta: {ex.Message}");
             }
         }
 
