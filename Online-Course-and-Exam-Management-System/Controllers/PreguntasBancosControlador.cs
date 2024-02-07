@@ -20,7 +20,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Get: api/PreguntaBanco
         [HttpGet("GetPreguntaBanco")]
-        public async Task<ActionResult<IEnumerable<Preguntabanco>>> GetPreguntaBanco()
+        public async Task<ActionResult<IEnumerable<Preguntasbancos>>> GetPreguntaBanco()
         {
             try
             {
@@ -36,7 +36,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound(" No se encontraron preguntaBanco");
                 }
 
-                var preguntaBancoDTO = preguntaBanco.Select(p => new Preguntabanco
+                var preguntaBancoDTO = preguntaBanco.Select(p => new Preguntasbancos
                 {
 
                     Id = p.Id,
@@ -61,7 +61,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // POST: api/preguntaBanco
         [HttpPost("PostpreguntaBanco")]
-        public async Task<IActionResult> PostpreguntaBanco([FromBody] Preguntabanco preguntabanco)
+        public async Task<IActionResult> PostpreguntaBanco([FromBody] Preguntasbancos preguntabanco)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // PUT: api/preguntaBanco
         [HttpPut("PutpreguntaBanco/{id}")]
-        public async Task<IActionResult> PutpreguntaBanco(int id, [FromBody] Preguntabanco preguntabanco)
+        public async Task<IActionResult> PutpreguntaBanco(int id, [FromBody] Preguntasbancos preguntabanco)
         {
             try
             {

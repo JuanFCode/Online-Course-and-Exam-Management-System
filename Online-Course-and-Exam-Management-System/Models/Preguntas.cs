@@ -12,7 +12,7 @@ public partial class Preguntas
 
     public virtual Examenes? ExamenNavigation { get; set; }
 
-    public virtual Preguntabanco? PreguntabancoNavigation { get; set; }
+    public virtual Preguntasbancos? PreguntabancoNavigation { get; set; }
 
     public virtual ICollection<Respuestas> Respuesta { get; set; } = new List<Respuestas>();
 

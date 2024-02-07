@@ -20,7 +20,7 @@ public partial class Cursos
 
     public virtual ICollection<Examenes> Examen { get; set; } = new List<Examenes>();
 
-    public virtual ICollection<Preguntabanco> Preguntabancos { get; set; } = new List<Preguntabanco>();
+    public virtual ICollection<Preguntasbancos> Preguntabancos { get; set; } = new List<Preguntasbancos>();
 
     public virtual ICollection<Terceroscursos> Terceroscursos { get; set; } = new List<Terceroscursos>();
 

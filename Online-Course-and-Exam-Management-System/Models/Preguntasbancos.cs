@@ -1,6 +1,6 @@
 ﻿namespace Online_Course_and_Exam_Management_System.Models;
 
-public partial class Preguntabanco
+public partial class Preguntasbancos
 {
     public int Id { get; set; }
 

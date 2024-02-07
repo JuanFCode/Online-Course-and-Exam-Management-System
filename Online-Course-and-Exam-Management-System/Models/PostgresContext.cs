@@ -19,7 +19,7 @@ public partial class PostgresContext : DbContext
 
     public virtual DbSet<Paises> Pais { get; set; }
 
-      public virtual DbSet<Preguntabanco> Preguntabancos { get; set; }
+      public virtual DbSet<Preguntasbancos> Preguntabancos { get; set; }
 
     public virtual DbSet<Preguntas> Pregunta { get; set; }
 
@@ -136,7 +136,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("nombre");
         });
 
-        modelBuilder.Entity<Preguntabanco>(entity =>
+        modelBuilder.Entity<Preguntasbancos>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pkpreguntabanco");
 
