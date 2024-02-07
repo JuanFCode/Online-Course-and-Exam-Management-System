@@ -1,6 +1,6 @@
 ﻿namespace Online_Course_and_Exam_Management_System.Models;
 
-public partial class Transaccion
+public partial class Transacciones
 {
     public int Id { get; set; }
 
@@ -18,9 +18,9 @@ public partial class Transaccion
 
     public string? Codigo { get; set; }
 
-    public virtual Curso? CursoNavigation { get; set; }
+    public virtual Cursos? CursoNavigation { get; set; }
 
-    public virtual Tercero? TerceroNavigation { get; set; }
+    public virtual Terceros? TerceroNavigation { get; set; }
 
-    public virtual ICollection<Terceroscurso> Terceroscursos { get; set; } = new List<Terceroscurso>();
+    public virtual ICollection<Terceroscursos> Terceroscursos { get; set; } = new List<Terceroscursos>();
 }

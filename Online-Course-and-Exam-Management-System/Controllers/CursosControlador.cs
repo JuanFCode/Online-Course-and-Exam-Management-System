@@ -6,12 +6,12 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CursoController : ControllerBase
+    public class CursosControlador : ControllerBase
     {
         private readonly PostgresContext _context;
-        private readonly ILogger<CursoController> _logger;
+        private readonly ILogger<CursosControlador> _logger;
 
-        public CursoController(PostgresContext context, ILogger<CursoController> logger)
+        public CursosControlador(PostgresContext context, ILogger<CursosControlador> logger)
         {
             _context = context;
             _logger = logger;
@@ -20,7 +20,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Obtiene la lista de los cursos
         [HttpGet("GetCurso")]
-        public async Task<ActionResult<IEnumerable<Curso>>> GetCurso()
+        public async Task<ActionResult<IEnumerable<Cursos>>> GetCurso()
         {
             try
             {
@@ -34,7 +34,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound("No se encontraron cursos.");
                 }
 
-                var cursoDTO = cursos.Select(p => new Curso
+                var cursoDTO = cursos.Select(p => new Cursos
                 {
                     Id = p.Id,
                     Nombre = p.Nombre,
@@ -59,7 +59,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
         }
 
         [HttpPost("PostCurso")]
-        public async Task<IActionResult> CreateCurso([FromBody] Curso curso)
+        public async Task<IActionResult> CreateCurso([FromBody] Cursos curso)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
         }
 
         [HttpPut("putCurso/{id}")]
-        public async Task<IActionResult> PutCurso(int id, [FromBody] Curso curso)
+        public async Task<IActionResult> PutCurso(int id, [FromBody] Cursos curso)
         {
             try
             {

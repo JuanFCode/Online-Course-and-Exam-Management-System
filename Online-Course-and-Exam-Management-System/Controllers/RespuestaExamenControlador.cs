@@ -6,13 +6,13 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RespuestaExamenController : ControllerBase
+    public class RespuestaExamenControlador : ControllerBase
     {
 
         private readonly PostgresContext _context;
-        private readonly ILogger<RespuestaExamenController> _logger;
+        private readonly ILogger<RespuestaExamenControlador> _logger;
 
-        public RespuestaExamenController(PostgresContext context, ILogger<RespuestaExamenController> logger)
+        public RespuestaExamenControlador(PostgresContext context, ILogger<RespuestaExamenControlador> logger)
         {
             _context = context;
             _logger = logger;
@@ -21,7 +21,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Get: api/RespuestaExamen
         [HttpGet("GetRespuestaExamen")]
-        public async Task<ActionResult<IEnumerable<Respuestaexaman>>> GetRespuestaExamen()
+        public async Task<ActionResult<IEnumerable<Respuestasexamenes>>> GetRespuestaExamen()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound(" No se encontraron respuestaExamen");
                 }
 
-                var respuestaExamenDTO = respuestaExamen.Select(p => new Respuestaexaman
+                var respuestaExamenDTO = respuestaExamen.Select(p => new Respuestasexamenes
                 {
 
                     Id = p.Id,
@@ -65,7 +65,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // POST: api/Respuesta
         [HttpPost("PostrespuestaExamen")]
-        public async Task<IActionResult> Postrespuesta([FromBody] Respuestaexaman respuestaexaman)
+        public async Task<IActionResult> Postrespuesta([FromBody] Respuestasexamenes respuestaexaman)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // PUT: api/respuestaExamen
         [HttpPut("PutrespuestaExamen/{id}")]
-        public async Task<IActionResult> PutrespuestaExamen(int id, [FromBody] Respuestaexaman respuestaexaman)
+        public async Task<IActionResult> PutrespuestaExamen(int id, [FromBody] Respuestasexamenes respuestaexaman)
         {
             try
             {

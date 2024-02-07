@@ -10,12 +10,12 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountriesController : ControllerBase
+    public class PaisesControlador : ControllerBase
     {
         private readonly PostgresContext _context;
-        private readonly ILogger<CountriesController> _logger;
+        private readonly ILogger<PaisesControlador> _logger;
 
-        public CountriesController(PostgresContext context, ILogger<CountriesController> logger)
+        public PaisesControlador(PostgresContext context, ILogger<PaisesControlador> logger)
         {
             _context = context;
             _logger = logger;
@@ -23,7 +23,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Obtiene la lista de países desde un procedimiento almacenado.
         [HttpGet("GetPais")]
-        public async Task<ActionResult<IEnumerable<Pai>>> GetPaisesFromStoredProcedure()
+        public async Task<ActionResult<IEnumerable<Paises>>> GetPaisesFromStoredProcedure()
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 _logger.LogInformation("Consulta ejecutada exitosamente");
 
                 // Mapear los resultados a un DTO (Data Transfer Objects) de país para controlar los datos expuestos
-                var paisDTO = paises.Select(p => new Pai
+                var paisDTO = paises.Select(p => new Paises
                 {
                     Id = p.Id,
                     Nombre = p.Nombre
@@ -55,14 +55,14 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Crea un nuevo país.
         [HttpPost("PostPais")]
-        public async Task<IActionResult> CreatePais([FromBody] Pai pai)
+        public async Task<IActionResult> CreatePais([FromBody] Paises pai)
         {
             try
             {
                 _logger.LogInformation("Creando nuevo país");
 
                 // Crear una nueva instancia de la entidad Pais con los datos recibidos
-                var nuevoPais = new Pai
+                var nuevoPais = new Paises
                 {
                     Id = pai.Id,
                     Nombre = pai.Nombre
@@ -88,7 +88,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
 
         [HttpPut("PutPais/{id}")]
-        public async Task<IActionResult> UpdatePais(int id, [FromBody] Pai pai)
+        public async Task<IActionResult> UpdatePais(int id, [FromBody] Paises pai)
         {
             try
             {

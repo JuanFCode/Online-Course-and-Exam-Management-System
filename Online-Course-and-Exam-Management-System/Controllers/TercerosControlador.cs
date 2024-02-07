@@ -6,13 +6,13 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TerceroController : ControllerBase
+    public class TercerosControlador : ControllerBase
     {
 
         private readonly PostgresContext _context;
-        private readonly ILogger<TerceroController> _logger;
+        private readonly ILogger<TercerosControlador> _logger;
 
-        public TerceroController(PostgresContext context, ILogger<TerceroController> logger)
+        public TercerosControlador(PostgresContext context, ILogger<TercerosControlador> logger)
         {
             _context = context;
             _logger = logger;
@@ -20,7 +20,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Obtiene la lista de los terceros
         [HttpGet("GetTercero")]
-        public async Task<ActionResult<IEnumerable<Tercero>>> GetTercero()
+        public async Task<ActionResult<IEnumerable<Terceros>>> GetTercero()
         {
             try
             {
@@ -32,7 +32,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                 _logger.LogInformation("Consulta ejecutada exitosamente");
 
                 // Mapear los resultados a un DTO (Data Transfer Objects) de tercero para controlar los datos expuestos
-                var terceroDTO = terceros.Select(p => new Tercero
+                var terceroDTO = terceros.Select(p => new Terceros
                 {
                     Id = p.Id,
                     Nombre = p.Nombre,
@@ -59,14 +59,14 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Crea un nuevo Tercero.
         [HttpPost("PostTercero")]
-        public async Task<IActionResult> CreateTercero([FromBody] Tercero tercero)
+        public async Task<IActionResult> CreateTercero([FromBody] Terceros tercero)
         {
             try
             {
                 _logger.LogInformation("Creando nuevo tercero");
 
                 // Crear una nueva instancia de la entidad  con los datos recibidos
-                var nuevoTercero = new Tercero
+                var nuevoTercero = new Terceros
                 {
                     Id = tercero.Id,
                     Nombre = tercero.Nombre,
@@ -98,7 +98,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
 
         [HttpPut("PutTercero/{id}")]
-        public async Task<IActionResult> UpdateTercero(int id, [FromBody] Tercero tercero)
+        public async Task<IActionResult> UpdateTercero(int id, [FromBody] Terceros tercero)
         {
             try
             {

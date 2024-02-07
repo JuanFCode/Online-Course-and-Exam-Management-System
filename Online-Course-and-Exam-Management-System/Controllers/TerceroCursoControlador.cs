@@ -5,14 +5,14 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TerceroCursoController : ControllerBase
+    public class TerceroCursoControlador : ControllerBase
     {
 
         private readonly PostgresContext _context;
-        private readonly ILogger<TerceroCursoController> _logger;
+        private readonly ILogger<TerceroCursoControlador> _logger;
 
 
-        public TerceroCursoController( PostgresContext context, ILogger<TerceroCursoController> logger)
+        public TerceroCursoControlador( PostgresContext context, ILogger<TerceroCursoControlador> logger)
         {
                 _context = context;
                 _logger = logger;
@@ -22,7 +22,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Get: api/TerceroCuros
         [HttpGet("GetTerceroCurso")]
-        public async Task<ActionResult<IEnumerable<Terceroscurso>>> GetTerceroCurso()
+        public async Task<ActionResult<IEnumerable<Terceroscursos>>> GetTerceroCurso()
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound(" No se encontraron TerceroCurso");
                 }
 
-                var terceroCursoDTO = terceroCurso.Select(p => new Terceroscurso
+                var terceroCursoDTO = terceroCurso.Select(p => new Terceroscursos
                 {
 
                     Id = p.Id,
@@ -66,7 +66,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // POST: api/TerceroCurso
         [HttpPost("PostTerceroCurso")]
-        public async Task<IActionResult> postTerceroCurso([FromBody] Terceroscurso terceroscurso)
+        public async Task<IActionResult> postTerceroCurso([FromBody] Terceroscursos terceroscurso)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // PUT: api/TerceroCurso
         [HttpPut("putTerceroCurso/{id}")]
-        public async Task<IActionResult> PutTerceroCurso(int id, [FromBody] Terceroscurso terceroscurso)
+        public async Task<IActionResult> PutTerceroCurso(int id, [FromBody] Terceroscursos terceroscurso)
         {
             try
             {

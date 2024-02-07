@@ -1,6 +1,6 @@
 ﻿namespace Online_Course_and_Exam_Management_System.Models;
 
-public partial class Respuestum
+public partial class Respuestas
 {
     public int Id { get; set; }
 
@@ -10,7 +10,7 @@ public partial class Respuestum
 
     public int? Porcentaje { get; set; }
 
-    public virtual Preguntum? PreguntaNavigation { get; set; }
+    public virtual Preguntas? PreguntaNavigation { get; set; }
 
-    public virtual ICollection<Respuestaexaman> Respuestaexamen { get; set; } = new List<Respuestaexaman>();
+    public virtual ICollection<Respuestasexamenes> Respuestaexamen { get; set; } = new List<Respuestasexamenes>();
 }

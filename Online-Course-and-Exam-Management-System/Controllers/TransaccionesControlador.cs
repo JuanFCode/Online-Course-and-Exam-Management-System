@@ -6,12 +6,12 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TransaccionController : ControllerBase
+    public class TransaccionesControlador : ControllerBase
     {
         private readonly PostgresContext _context;
-        private readonly ILogger<TransaccionController> _logger;
+        private readonly ILogger<TransaccionesControlador> _logger;
 
-        public TransaccionController(PostgresContext context, ILogger<TransaccionController> logger)
+        public TransaccionesControlador(PostgresContext context, ILogger<TransaccionesControlador> logger)
         {
             _context = context;
             _logger = logger;
@@ -19,7 +19,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // GET: api/Transaccion
         [HttpGet("GetTransaccion")]
-        public async Task<ActionResult<IEnumerable<Transaccion>>> GetTransaccions()
+        public async Task<ActionResult<IEnumerable<Transacciones>>> GetTransaccions()
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound(" No se encontraron cursos");
                 }
 
-                var transaccionesDTO = transacciones.Select(p => new Transaccion
+                var transaccionesDTO = transacciones.Select(p => new Transacciones
                 {
 
                     Id = p.Id,
@@ -66,7 +66,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // PUT: api/Transaccion
         [HttpPut("putTransaccion/{id}")]
-        public async Task<IActionResult> PutTransaccion(int id, [FromBody] Transaccion transaccion)
+        public async Task<IActionResult> PutTransaccion(int id, [FromBody] Transacciones transaccion)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // POST: api/Transaccion
         [HttpPost("PostTransaccion")]
-        public async Task<IActionResult> postTransaccion([FromBody] Transaccion transaccion)
+        public async Task<IActionResult> postTransaccion([FromBody] Transacciones transaccion)
         {
             try
             {

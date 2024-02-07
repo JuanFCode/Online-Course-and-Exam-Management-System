@@ -1,6 +1,6 @@
 ﻿namespace Online_Course_and_Exam_Management_System.Models;
 
-public partial class Terceroscurso
+public partial class Terceroscursos
 {
     public int Id { get; set; }
 
@@ -14,9 +14,9 @@ public partial class Terceroscurso
 
     public DateTime? Fechafinal { get; set; }
 
-    public virtual Curso? CursoNavigation { get; set; }
+    public virtual Cursos? CursoNavigation { get; set; }
 
-    public virtual Tercero? TerceroNavigation { get; set; }
+    public virtual Terceros? TerceroNavigation { get; set; }
 
-    public virtual Transaccion? TransaccionNavigation { get; set; }
+    public virtual Transacciones? TransaccionNavigation { get; set; }
 }

@@ -7,13 +7,13 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PreguntaController : ControllerBase
+    public class PreguntaControlador : ControllerBase
     {
 
         private readonly PostgresContext _context;
-        private readonly ILogger<PreguntaController> _logger;
+        private readonly ILogger<PreguntaControlador> _logger;
 
-        public PreguntaController(PostgresContext context, ILogger<PreguntaController> logger)
+        public PreguntaControlador(PostgresContext context, ILogger<PreguntaControlador> logger)
         {
             _context = context;
             _logger = logger;
@@ -21,7 +21,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Get: api/Pregunta
         [HttpGet("GetPregunta")]
-        public async Task<ActionResult<IEnumerable<Preguntum>>> GetPregunta()
+        public async Task<ActionResult<IEnumerable<Preguntas>>> GetPregunta()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound(" No se encontraron preguntas");
                 }
 
-                var preguntaDTO = pregunta.Select(p => new Preguntum
+                var preguntaDTO = pregunta.Select(p => new Preguntas
                 {
 
                     Id = p.Id,
@@ -62,7 +62,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // POST: api/pregunta
         [HttpPost("Postpregunta")]
-        public async Task<IActionResult> Postpregunta([FromBody] Preguntum preguntum)
+        public async Task<IActionResult> Postpregunta([FromBody] Preguntas preguntum)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // PUT: api/pregunta
         [HttpPut("Putpregunta/{id}")]
-        public async Task<IActionResult> Putpregunta(int id, [FromBody] Preguntum   preguntum)
+        public async Task<IActionResult> Putpregunta(int id, [FromBody] Preguntas   preguntum)
         {
             try
             {

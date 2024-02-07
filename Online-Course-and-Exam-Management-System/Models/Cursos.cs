@@ -1,6 +1,6 @@
 ﻿namespace Online_Course_and_Exam_Management_System.Models;
 
-public partial class Curso
+public partial class Cursos
 {
     public int Id { get; set; }
 
@@ -18,11 +18,11 @@ public partial class Curso
 
     public string? Descripcion { get; set; }
 
-    public virtual ICollection<Examan> Examen { get; set; } = new List<Examan>();
+    public virtual ICollection<Examenes> Examen { get; set; } = new List<Examenes>();
 
     public virtual ICollection<Preguntabanco> Preguntabancos { get; set; } = new List<Preguntabanco>();
 
-    public virtual ICollection<Terceroscurso> Terceroscursos { get; set; } = new List<Terceroscurso>();
+    public virtual ICollection<Terceroscursos> Terceroscursos { get; set; } = new List<Terceroscursos>();
 
-    public virtual ICollection<Transaccion> Transaccions { get; set; } = new List<Transaccion>();
+    public virtual ICollection<Transacciones> Transaccions { get; set; } = new List<Transacciones>();
 }

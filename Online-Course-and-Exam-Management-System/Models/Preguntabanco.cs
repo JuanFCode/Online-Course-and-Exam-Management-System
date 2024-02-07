@@ -12,7 +12,7 @@ public partial class Preguntabanco
 
     public string? Explicacion { get; set; }
 
-    public virtual Curso? CursoNavigation { get; set; }
+    public virtual Cursos? CursoNavigation { get; set; }
 
-    public virtual ICollection<Preguntum> Pregunta { get; set; } = new List<Preguntum>();
+    public virtual ICollection<Preguntas> Pregunta { get; set; } = new List<Preguntas>();
 }

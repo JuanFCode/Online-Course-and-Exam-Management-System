@@ -6,13 +6,13 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExamenPresentadoController : ControllerBase
+    public class ExamenesPresentadosControlador : ControllerBase
     {
 
         private readonly PostgresContext _context;
-        private readonly ILogger<ExamenPresentadoController> _logger;
+        private readonly ILogger<ExamenesPresentadosControlador> _logger;
 
-        public ExamenPresentadoController(PostgresContext context, ILogger<ExamenPresentadoController> logger)
+        public ExamenesPresentadosControlador(PostgresContext context, ILogger<ExamenesPresentadosControlador> logger)
         {
             _context = context;
             _logger = logger;
@@ -20,7 +20,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Get: api/Respuesta
         [HttpGet("GetExamenPresentado")]
-        public async Task<ActionResult<IEnumerable<Examenpresentado>>> GetExamenPresentado()
+        public async Task<ActionResult<IEnumerable<Examenespresentados>>> GetExamenPresentado()
         {
             try
             {
@@ -36,7 +36,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound(" No se encontraron Examenespresentados ");
                 }
 
-                var examenPresentadoDTO = examenPresentado.Select(p => new Examenpresentado
+                var examenPresentadoDTO = examenPresentado.Select(p => new Examenespresentados
                 {
 
                     Id = p.Id,
@@ -64,7 +64,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // POST: api/ExamenPresentado
         [HttpPost("PostExamenPresentado")]
-        public async Task<IActionResult> PostExamenPresentado([FromBody] Examenpresentado    examenpresentado)
+        public async Task<IActionResult> PostExamenPresentado([FromBody] Examenespresentados    examenpresentado)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // PUT: api/ExamenPresentado
         [HttpPut("Putpregunta/{id}")]
-        public async Task<IActionResult> PutExamenPresentado(int id, [FromBody] Examenpresentado examenpresentado)
+        public async Task<IActionResult> PutExamenPresentado(int id, [FromBody] Examenespresentados examenpresentado)
         {
             try
             {

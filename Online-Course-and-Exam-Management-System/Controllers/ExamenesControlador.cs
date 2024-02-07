@@ -5,13 +5,13 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExamenController : ControllerBase
+    public class ExamenesControlador : ControllerBase
     {
 
         private readonly PostgresContext _context;
-        private readonly ILogger<ExamenController> _logger;
+        private readonly ILogger<ExamenesControlador> _logger;
 
-        public ExamenController(    PostgresContext context ,   ILogger<ExamenController>   logger)
+        public ExamenesControlador(    PostgresContext context ,   ILogger<ExamenesControlador>   logger)
         {
             _context = context;
             _logger = logger;
@@ -19,7 +19,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Get: api/Examen
         [HttpGet("GetExamen")]
-        public async Task<ActionResult<IEnumerable<Examan>>> GetExamen()
+        public async Task<ActionResult<IEnumerable<Examenes>>> GetExamen()
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound(" No se encontraron Examen");
                 }
 
-                var examenDTO = examen.Select(p => new Examan
+                var examenDTO = examen.Select(p => new Examenes
                 {
 
                     Id = p.Id,
@@ -62,7 +62,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // POST: api/Examen
         [HttpPost("PostExamen")]
-        public async Task<IActionResult> PostExamen([FromBody] Examan examan)
+        public async Task<IActionResult> PostExamen([FromBody] Examenes examan)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // PUT: api/Examen
         [HttpPut("PutExamen/{id}")]
-        public async Task<IActionResult> PutExamen(int id, [FromBody] Examan examan)
+        public async Task<IActionResult> PutExamen(int id, [FromBody] Examenes examan)
         {
             try
             {

@@ -1,6 +1,6 @@
 ﻿namespace Online_Course_and_Exam_Management_System.Models;
 
-public partial class Examenpresentado
+public partial class Examenespresentados
 {
     public int Id { get; set; }
 
@@ -16,9 +16,9 @@ public partial class Examenpresentado
 
     public string? Estadoexamen { get; set; }
 
-    public virtual Examan? ExamenNavigation { get; set; }
+    public virtual Examenes? ExamenNavigation { get; set; }
 
-    public virtual ICollection<Respuestaexaman> Respuestaexamen { get; set; } = new List<Respuestaexaman>();
+    public virtual ICollection<Respuestasexamenes> Respuestaexamen { get; set; } = new List<Respuestasexamenes>();
 
-    public virtual Tercero? TerceroNavigation { get; set; }
+    public virtual Terceros? TerceroNavigation { get; set; }
 }

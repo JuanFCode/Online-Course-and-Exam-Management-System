@@ -11,33 +11,33 @@ public partial class PostgresContext : DbContext
     {
     }
 
-    public virtual DbSet<Curso> Cursos { get; set; }
+    public virtual DbSet<Cursos> Cursos { get; set; }
 
-    public virtual DbSet<Examan> Examen { get; set; }
+    public virtual DbSet<Examenes> Examen { get; set; }
 
-    public virtual DbSet<Examenpresentado> Examenpresentados { get; set; }
+    public virtual DbSet<Examenespresentados> Examenpresentados { get; set; }
 
-    public virtual DbSet<Pai> Pais { get; set; }
+    public virtual DbSet<Paises> Pais { get; set; }
 
       public virtual DbSet<Preguntabanco> Preguntabancos { get; set; }
 
-    public virtual DbSet<Preguntum> Pregunta { get; set; }
+    public virtual DbSet<Preguntas> Pregunta { get; set; }
 
-    public virtual DbSet<Respuestaexaman> Respuestaexamen { get; set; }
+    public virtual DbSet<Respuestasexamenes> Respuestaexamen { get; set; }
 
-    public virtual DbSet<Respuestum> Respuesta { get; set; }
+    public virtual DbSet<Respuestas> Respuesta { get; set; }
 
-    public virtual DbSet<Tercero> Terceros { get; set; }
+    public virtual DbSet<Terceros> Terceros { get; set; }
 
-    public virtual DbSet<Terceroscurso> Terceroscursos { get; set; }
+    public virtual DbSet<Terceroscursos> Terceroscursos { get; set; }
 
-    public virtual DbSet<Transaccion> Transaccions { get; set; }
+    public virtual DbSet<Transacciones> Transaccions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pg_catalog", "adminpack");
 
-        modelBuilder.Entity<Curso>(entity =>
+        modelBuilder.Entity<Cursos>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PKCURSO");
 
@@ -67,7 +67,7 @@ public partial class PostgresContext : DbContext
                 .HasColumnName("nombre");
         });
 
-        modelBuilder.Entity<Examan>(entity =>
+        modelBuilder.Entity<Examenes>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PKEXAMEN");
 
@@ -91,7 +91,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("fkexamencurso");
         });
 
-        modelBuilder.Entity<Examenpresentado>(entity =>
+        modelBuilder.Entity<Examenespresentados>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pkexamenpresentado");
 
@@ -122,7 +122,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("fkexamenpresentadotercero");
         });
 
-         modelBuilder.Entity<Pai>(entity =>
+         modelBuilder.Entity<Paises>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pkpais");
 
@@ -161,7 +161,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("fkpreguntabancocurso");
         });
 
-        modelBuilder.Entity<Preguntum>(entity =>
+        modelBuilder.Entity<Preguntas>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pkpregunta");
 
@@ -183,7 +183,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("fkpreguntapreguntabanco");
         });
 
-        modelBuilder.Entity<Respuestaexaman>(entity =>
+        modelBuilder.Entity<Respuestasexamenes>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("respuestaexamen_pk");
 
@@ -213,7 +213,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("fkrespuestaexamenrespuesta");
         });
 
-        modelBuilder.Entity<Respuestum>(entity =>
+        modelBuilder.Entity<Respuestas>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pkrespuesta");
 
@@ -231,7 +231,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("respuesta_fk");
         });
 
-        modelBuilder.Entity<Tercero>(entity =>
+        modelBuilder.Entity<Terceros>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PKTERCERO");
 
@@ -264,7 +264,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("fkterceropais");
         });
 
-        modelBuilder.Entity<Terceroscurso>(entity =>
+        modelBuilder.Entity<Terceroscursos>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("tercerocurso_pk");
 
@@ -296,7 +296,7 @@ public partial class PostgresContext : DbContext
                 .HasConstraintName("tercerocurso_fk");
         });
 
-        modelBuilder.Entity<Transaccion>(entity =>
+        modelBuilder.Entity<Transacciones>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("transaccion_pk");
 

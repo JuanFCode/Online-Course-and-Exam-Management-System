@@ -6,12 +6,12 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RespuestaController : ControllerBase
+    public class RespuestasControlador : ControllerBase
     {
         private readonly PostgresContext _context;
-        private readonly ILogger<RespuestaController> _logger;
+        private readonly ILogger<RespuestasControlador> _logger;
 
-        public RespuestaController(PostgresContext context, ILogger<RespuestaController> logger)
+        public RespuestasControlador(PostgresContext context, ILogger<RespuestasControlador> logger)
         {
             _context = context;
             _logger = logger;
@@ -20,7 +20,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // Get: api/Respuesta
         [HttpGet("GetRespuesta")]
-        public async Task<ActionResult<IEnumerable<Respuestum>>> GetRespuesta()
+        public async Task<ActionResult<IEnumerable<Respuestas>>> GetRespuesta()
         {
             try
             {
@@ -36,7 +36,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
                     return NotFound(" No se encontraron respuestas");
                 }
 
-                var respuestaDTO = respuesta.Select(p => new Respuestum
+                var respuestaDTO = respuesta.Select(p => new Respuestas
                 {
 
                     Id = p.Id,
@@ -60,7 +60,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // POST: api/Respuesta
         [HttpPost("PostRespuesta")]
-        public async Task<IActionResult> Postrespuesta([FromBody] Respuestum   respuestum)
+        public async Task<IActionResult> Postrespuesta([FromBody] Respuestas   respuestum)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 
         // PUT: api/respuesta
         [HttpPut("PutRespuesta/{id}")]
-        public async Task<IActionResult> Putrespuesta(int id, [FromBody] Respuestum respuestum)
+        public async Task<IActionResult> Putrespuesta(int id, [FromBody] Respuestas respuestum)
         {
             try
             {
