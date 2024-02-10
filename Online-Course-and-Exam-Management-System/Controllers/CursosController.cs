@@ -6,12 +6,12 @@ namespace Online_Course_and_Exam_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CursosControlador : ControllerBase
+    public class CursosController : ControllerBase
     {
         private readonly PostgresContext _context;
-        private readonly ILogger<CursosControlador> _logger;
+        private readonly ILogger<CursosController> _logger;
 
-        public CursosControlador(PostgresContext context, ILogger<CursosControlador> logger)
+        public CursosController(PostgresContext context, ILogger<CursosController> logger)
         {
             _context = context;
             _logger = logger;
